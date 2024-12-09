@@ -1,0 +1,154 @@
+
+<!-- <div class="container-fluid">
+    <form #userFrom="ngForm" (ngSubmit) = "getEmpDetails()">
+        {{emp | json}}
+        <input type="text" #empId = "ngModel" class ="form-control" name = "empId" [(ngModel)] = "emp.empId">
+        <input type="text" #empName = "ngModel" class = "form-control" name="empName" [(ngModel)] = "emp.empName"> -->
+        <!-- <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+</div> -->
+
+<mat-paginator 
+(page)="pageChangeEvent($event)"
+                [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+
+aria-label="Select page"
+>
+</mat-paginator>
+<table class="table table-dark table-bordered table-hover" >
+    <tbody>
+        <tr>
+            <th>
+                Employee ID
+            </th>
+            <th>
+                Employee name
+            </th>
+            <th>
+                Employee Email
+            </th>
+           
+            
+        
+            <th>
+                Present Gross Salary
+            </th>
+
+            <th>
+                Employee Share
+            </th>
+            <th>
+                Total Employer Share
+            </th>
+
+            <th>
+                netSalary
+            </th>
+            <th>
+                lastMonthPfDue
+            </th>
+            <th>
+                total  
+            </th>
+
+            <th>
+                update
+            </th>
+            <th>
+                save
+            </th>
+            <th>
+                delete
+            </th>
+            <th>
+
+            </th>    
+            <th>
+                Attendance
+            </th>
+
+        </tr>
+        
+        
+        <tr *ngFor = "let emp1 of allEmpSal;">
+            <td> 
+
+                {{emp1.empId}}
+                
+            </td>
+            <td>
+                
+                <input type="text" [disabled] = "!emp1.isEditing"  [(ngModel)] = "emp1.empName" class="form-control">
+            </td>
+            <td>
+             
+                <input type="text" [disabled] = "!emp1.isEditing" [(ngModel)]="emp1.empEmail" class="form-control">
+
+            </td>
+            
+                
+                <!--Employee Salary Fields-->
+                <td>
+             
+                    <input type="text" [disabled] = "!emp1.isEditing" [(ngModel)]="emp1.presentGrossSalary" class="form-control">
+    
+                </td>
+                <td>
+             
+                    <input type="text" [disabled] = "!emp1.isEditing" [(ngModel)]="emp1.employeeShare" class="form-control">
+    
+                </td>
+                <td>
+             
+                    <input type="text" [disabled] = "!emp1.isEditing" [(ngModel)]="emp1.totalEmployerShare" class="form-control">
+    
+                </td>
+                <td>
+             
+                    <input type="text" [disabled] = "!emp1.isEditing" [(ngModel)]="emp1.netSalary" class="form-control">
+    
+                </td>
+                <td>
+             
+                    <input type="text" [disabled] = "!emp1.isEditing" [(ngModel)]="emp1.lastMonthPfDue" class="form-control">
+    
+                </td>
+                <td>
+             
+                    <input type="text" [disabled] = "!emp1.isEditing" [(ngModel)]="emp1.total" class="form-control">
+    
+                </td>
+                <td>
+                    <input type="button" *ngIf="!emp1.isEditing" value="Update"  class="btn btn-primary" (click)="startEditing(emp1)">
+                </td>
+    
+                <td>
+                    <input type="button" value="save" *ngIf="emp1.isEditing" class="btn btn-success" (click)="saveDetails(emp1)">
+                </td>
+                <td>
+                    <input type="button" value="delete"  class="btn btn-success" (click)="deleteEmp(emp1)">
+    
+                </td>
+                <td>
+                  <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getEmpDetails(emp1)">
+        view 
+      </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#attendanceModal" (click)="getEmpAttendance(emp1.empId)">Attendance Sheet {{emp1.empId}}</button>
+                    </td>
+
+        </tr>
+    </tbody>
+
+
+</table>
+
+<app-popup #popup></app-popup>
+<app-attendance #attendance></app-attendance>

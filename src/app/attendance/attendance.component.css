@@ -1,0 +1,13 @@
+/* .container{
+    max-width: 567px;
+} */.snackbar-success {
+  background-color: #4caf50 !important; /* Green for success */
+  color: white !important;
+  z-index: 9999 !important; /* High z-index to bring it to the front */
+}
+
+.snackbar-error {
+  background-color: #f44336 !important; /* Red for error */
+  color: white !important;
+  z-index: 9999 !important; /* High z-index to bring it to the front */
+}

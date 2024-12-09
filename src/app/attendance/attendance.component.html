@@ -1,0 +1,80 @@
+
+<div class="modal fade" id="attendanceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-fullscreen-sm-down" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title text-center  fs-5" id="exampleModalLabel">{{month[currentMonth.toString()]}}</h1>
+        <select class = "form-select w-auto d-inlie-block" [(ngModel)]="currentMonth" (change) = "changeMonth()">
+          <option *ngFor = "let i of month | keyvalue : sortMonths" [value] = "i.key">{{i.value}}</option>
+        </select>
+        <select 
+        class = "form-select w-auto d-inline-block"
+        [(ngModel)] = "currentYear"
+        (change) = "changeMonth()"
+        >
+        <option *ngFor = "let y of years" [value] = "y">
+          {{y}}
+          
+        </option>
+          
+
+        </select>
+        
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+<div class="container-sm">
+    <h2 class="text-center mb-4"></h2>
+    
+    <!-- Weekday Labels -->
+    <div class="row text-center fw-bold">
+      <div class="col">Sun</div>
+      <div class="col">Mon</div>
+      <div class="col">Tue</div>
+      <div class="col">Wed</div>
+      <div class="col">Thu</div>
+      <div class="col">Fri</div>
+      <div class="col">Sat</div>
+      
+    </div>
+  
+    <!-- Calendar Grid -->
+    <div *ngFor="let week of weeks" class="row text-center">
+      <div *ngFor="let day of week" class="col border p-3">
+        <span *ngIf="day > 0">
+
+           <select class="form-select" aria-label="Default select example" [(ngModel)] = "empAttendancePerMonth['day'+day]" (change)="updateAttendance(day,$any($event.target).value)"> 
+
+                <option value="">--Select--</option>
+                <option [value]="'Present'">Present</option>
+                <option [value]="'Absent'">Absent</option>
+                <option [value]="'Leave'">Leave</option>
+                <option [value]="'OverTime'">OverTime</option>
+
+            </select>
+            <br/> 
+            <h1 class="btn btn-primary fs-5" [ngClass]="{
+            'btn-success':empAttendancePerMonth['day' + day] === 'Present',
+            'btn-danger':empAttendancePerMonth['day' + day] === 'Absent',
+            'btn-warning':empAttendancePerMonth['day' + day] === 'Leave',
+            'btn-secondary':empAttendancePerMonth['day' + day] === 'OverTime'
+            }">{{day}}</h1>
+        </span>
+      
+      </div>
+      
+    </div>
+    <div class="col border p-3">
+      {{ getDaysPresent() }}
+    </div>
+   
+  </div>
+  
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  <button class="btn btn-primary" data-bs-dismiss="modal" (click)="saveAttendance()" >save Attendance</button></div>
+</div>
+</div>
+
+</div>
